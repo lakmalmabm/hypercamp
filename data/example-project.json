@@ -1,0 +1,30 @@
+{
+  "name": "Project Name",
+  "description": "This is a detailed description of the project. It can include **Markdown formatting**, [links](https://example.com), and other rich text elements.",
+  "logo": "assets/logos/project-name.png",
+  "x": "https://x.com/project_username",
+  "discord": "https://discord.gg/invitecode",
+  "telegram": "https://t.me/project_channel",
+  "medium": "https://medium.com/@project",
+  "web": "https://projectwebsite.com",
+  "other_links": [
+    "https://link1.com",
+    "https://link2.com",
+    "https://link3.com"
+  ],
+  "category": "DeFi",
+  "tags": ["staking", "liquidity", "nft"],
+  "status": "upcoming",
+  "team": [
+    {
+      "name": "Alice Builder",
+      "x": "https://x.com/alicebuilder",
+      "title": "Founder & CEO"
+    },
+    {
+      "name": "Bob Coder",
+      "x": "https://x.com/bobcoder",
+      "title": "Lead Developer"
+    }
+  ]
+}
