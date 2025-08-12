@@ -74,12 +74,8 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 pull_number: context.issue.number,
-                commit_title: `🚀 ${context.payload.pull_request.title}`,
-                commit_message: `Automatically merged project submission.
-
-${context.payload.pull_request.body || ''}
-
-Co-Authored-By: ${context.payload.pull_request.user.login} <${context.payload.pull_request.user.id}+${context.payload.pull_request.user.login}@users.noreply.github.com>`,
+                commit_title: '🚀 ' + context.payload.pull_request.title,
+                commit_message: 'Automatically merged project submission.\n\n' + (context.payload.pull_request.body || '') + '\n\nCo-Authored-By: ' + context.payload.pull_request.user.login + ' <' + context.payload.pull_request.user.id + '+' + context.payload.pull_request.user.login + '@users.noreply.github.com>',
                 merge_method: 'squash'
               });
               
@@ -90,16 +86,7 @@ Co-Authored-By: ${context.payload.pull_request.user.login} <${context.payload.pu
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `🎉 **Welcome to HyperCamp!**
-
-Your project has been successfully added to the HyperCamp ecosystem! 
-
-🚀 It will appear on [hypercamp.xyz](https://hypercamp.xyz) within a few minutes.
-
-Thank you for contributing to the HyperEVM ecosystem! 💜
-
----
-*This PR was automatically merged after passing all validation checks and receiving approval.*`
+                body: '🎉 **Welcome to HyperCamp!**\n\nYour project has been successfully added to the HyperCamp ecosystem!\n\n🚀 It will appear on [hypercamp.xyz](https://hypercamp.xyz) within a few minutes.\n\nThank you for contributing to the HyperEVM ecosystem! 💜\n\n---\n*This PR was automatically merged after passing all validation checks and receiving approval.*'
               });
               
             } catch (error) {
@@ -110,11 +97,7 @@ Thank you for contributing to the HyperEVM ecosystem! 💜
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `❌ **Auto-merge failed**
-
-There was an issue automatically merging this PR. A maintainer will review and merge manually.
-
-Error: ${error.message}`
+                body: '❌ **Auto-merge failed**\n\nThere was an issue automatically merging this PR. A maintainer will review and merge manually.\n\nError: ' + error.message
               });
             }
 
@@ -123,7 +106,7 @@ Error: ${error.message}`
         uses: actions/github-script@v7
         with:
           script: |
-            const status = ${{ steps.pr-status.outputs.result }};
+            const status = JSON.parse('${{ steps.pr-status.outputs.result }}');
             let message = '⏳ **Auto-merge pending**\n\n';
             
             if (!status.checksPass) {

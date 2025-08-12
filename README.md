@@ -14,13 +14,6 @@ HyperCamp is an open-source community-driven platform where developers can disco
 - **🤖 Automated Submissions**: GitHub Actions-powered validation and deployment
 - **📱 Mobile-First**: Optimized for all devices
 
-## 🛠️ Technology Stack
-
-- **Framework**: Next.js 15.4.6 with App Router
-- **UI Library**: Chakra UI v2 with Emotion
-- **Language**: TypeScript (strict mode)
-- **Data**: File-based JSON storage
-- **Deployment**: Automated via GitHub Actions
 
 ## 📝 Contributing Projects
 
@@ -152,84 +145,8 @@ Our automated system validates:
 - ✅ **Naming**: No duplicate project names
 - ✅ **PR Title**: Must follow `Added Project [Name]` format
 
-## 🤖 Automated Features
 
-### GitHub Actions Workflows
 
-1. **PR Validation** (`validate-pr.yml`)
-   - Validates schema compliance
-   - Adds timestamp automatically
-   - Runs build tests
-   - Provides detailed feedback
-
-2. **Auto-merge** (`auto-merge.yml`)
-   - Merges approved submissions
-   - Sends welcome messages
-   - Handles edge cases
-
-3. **Deployment** (`deploy.yml`)
-   - Deploys to production
-   - Notifies contributors
-
-### Timestamp Management
-
-Projects automatically receive a `timestamp` field when submitted:
-```json
-{
-  "timestamp": "2024-12-20T15:30:45Z"
-}
-```
-
-## 🏃‍♂️ Local Development
-
-### Prerequisites
-- Node.js 18+
-- npm, yarn, pnpm, or bun
-
-### Setup
-```bash
-# Clone the repository
-git clone https://github.com/lakmalmabm/hypercamp.git
-cd hypercamp-web
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-### Available Scripts
-```bash
-npm run dev      # Start development server
-npm run build    # Build for production
-npm run start    # Start production server
-npm run lint     # Run ESLint
-```
-
-Open [http://localhost:3000](http://localhost:3000) to view the application.
-
-## 📁 Project Structure
-
-```
-hypercamp-web/
-├── src/
-│   ├── app/
-│   │   ├── api/projects/     # API routes
-│   │   ├── layout.tsx        # Root layout
-│   │   └── page.tsx          # Homepage
-│   ├── components/           # React components
-│   ├── lib/                 # Utility functions
-│   ├── theme/               # Chakra UI theme
-│   └── types/               # TypeScript types
-├── data/                    # Project JSON files
-├── public/assets/logos/     # Project logos
-├── .github/
-│   ├── workflows/           # GitHub Actions
-│   ├── scripts/            # Validation scripts
-│   └── project-schema.json # JSON schema
-└── ...
-```
 
 ## 🤝 Community Guidelines
 
@@ -251,6 +168,7 @@ hypercamp-web/
 - 🐛 **Bug Reports**: [GitHub Issues](https://github.com/lakmalmabm/hypercamp/issues)
 - 💬 **Discussions**: [GitHub Discussions](https://github.com/lakmalmabm/hypercamp/discussions)
 - 📖 **Documentation**: This README and inline code comments
+- 🐦 **Developer**: [Wild Developer](https://x.com/wild_developer_)
 
 ## 📄 License
 
