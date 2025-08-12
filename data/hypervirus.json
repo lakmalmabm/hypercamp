@@ -2,22 +2,23 @@
 	"name": "Hypervirus",
 	"description": "The first-ever \"infectious\" NFT collection on  @HyperliquidX chain. Digital pathogens with unpredictable effects when paired with your existing NFTs.",
 	"logo": "assets/logos/hypervirus.jpg",
+	"category": "NFT",
+
+	"status": "live",
 	"x": "https://x.com/hypervirus8888",
 	"discord": "https://discord.gg/Bk8wbSwSpv",
 	"web": "https://www.fighthervirus.xyz",
-	"category": "NFT",
-	"tags": ["nft"],
-	"status": "live",
+	"tags": ["NFT"],
 	"team": [
 		{
 			"name": "Wild Developer",
-			"x": "https://x.com/wild_developer_",
-			"title": "Founder & CEO"
+			"title": "Founder & CEO",
+			"x": "https://x.com/wild_developer_"
 		},
 		{
 			"name": "Tharindu N.",
-			"x": "https://x.com/trueThari",
-			"title": "Developer"
+			"title": "Developer",
+			"x": "https://x.com/trueThari"
 		}
 	]
 }
