@@ -7,6 +7,12 @@ on:
       - 'data/**'
       - 'public/assets/logos/**'
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  pages: write
+
 jobs:
   validate-submission:
     if: github.event.pull_request.user.login != 'lakmalmabm'
@@ -35,16 +41,6 @@ jobs:
           files: |
             data/**/*.json
             public/assets/logos/**
-
-      - name: Validate PR title format
-        run: |
-          PR_TITLE="${{ github.event.pull_request.title }}"
-          if [[ ! "$PR_TITLE" =~ ^[Aa]dded[[:space:]]+[Pp]roject[[:space:]]+\[.+\]$ ]]; then
-            echo "❌ PR title must follow format: 'Added Project [ProjectName]'"
-            echo "Current title: $PR_TITLE"
-            exit 1
-          fi
-          echo "✅ PR title format is correct"
 
       - name: Validate file changes
         run: |
