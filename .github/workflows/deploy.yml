@@ -48,10 +48,6 @@ jobs:
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `🚀 **Deployment Complete!**
-
-${projectTitle} is now live on [hypercamp.xyz](https://hypercamp.xyz)! 
-
-🎉 Welcome to the HyperEVM ecosystem!`
+                body: '🚀 **Deployment Complete!**\n\n' + projectTitle + ' is now live on [hypercamp.xyz](https://hypercamp.xyz)!\n\n🎉 Welcome to the HyperEVM ecosystem!'
               });
             }
