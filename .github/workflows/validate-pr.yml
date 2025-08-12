@@ -7,6 +7,11 @@ on:
       - 'data/**'
       - 'public/assets/logos/**'
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 jobs:
   validate-submission:
     if: github.event.pull_request.user.login != 'lakmalmabm'
