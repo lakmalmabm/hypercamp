@@ -9,8 +9,9 @@ on:
 
 jobs:
   validate-submission:
+    if: github.event.pull_request.user.login != 'lakmalmabm'
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -38,7 +39,7 @@ jobs:
       - name: Validate PR title format
         run: |
           PR_TITLE="${{ github.event.pull_request.title }}"
-          if [[ ! "$PR_TITLE" =~ ^Added\ Project\ \[.*\]$ ]]; then
+          if [[ ! "$PR_TITLE" =~ ^[Aa]dded[[:space:]]+[Pp]roject[[:space:]]+\[.+\]$ ]]; then
             echo "❌ PR title must follow format: 'Added Project [ProjectName]'"
             echo "Current title: $PR_TITLE"
             exit 1
@@ -48,32 +49,29 @@ jobs:
       - name: Validate file changes
         run: |
           echo "Changed files: ${{ steps.changed-files.outputs.all_changed_files }}"
-          
-          # Handle empty case
+
           if [ -z "${{ steps.changed-files.outputs.all_changed_files }}" ]; then
             echo "❌ No matching files found in this PR"
             exit 1
           fi
-          
-          # Count total changed files
-          CHANGED_COUNT=$(echo "${{ steps.changed-files.outputs.all_changed_files }}" | wc -w)
-          
+
+          CHANGED_COUNT=$(echo "${{ steps.changed-files.outputs.all_changed_files }}" | tr ' ' '\n' | wc -l)
+
           if [ "$CHANGED_COUNT" -gt 2 ]; then
-            echo "❌ Only 2 files are allowed per PR: 1 JSON file in /data and 1 logo file in /public/assets/logos"
+            echo "❌ Only 2 files allowed per PR: 1 JSON file in /data and 1 logo file in /public/assets/logos"
             echo "Found $CHANGED_COUNT changed files"
             exit 1
           fi
-          
-          # Check if exactly one JSON file and one logo file
+
           JSON_FILES=$(echo "${{ steps.changed-files.outputs.all_changed_files }}" | tr ' ' '\n' | grep -E "^data/.*\.json$" | wc -l || true)
           LOGO_FILES=$(echo "${{ steps.changed-files.outputs.all_changed_files }}" | tr ' ' '\n' | grep -E "^public/assets/logos/.*\.(png|jpg|jpeg|svg)$" | wc -l || true)
-          
+
           if [ "$JSON_FILES" -ne 1 ] || [ "$LOGO_FILES" -ne 1 ]; then
             echo "❌ Must have exactly 1 JSON file in /data and 1 logo file in /public/assets/logos"
             echo "Found: $JSON_FILES JSON files, $LOGO_FILES logo files"
             exit 1
           fi
-          
+
           echo "✅ File changes are valid"
 
       - name: Install validation dependencies
@@ -88,21 +86,17 @@ jobs:
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ "$file" == data/*.json ]]; then
               echo "Validating JSON file: $file"
-              
-              # Use custom validation script
               node .github/scripts/validate-project.js "$file"
-              
               echo "✅ JSON validation passed for $file"
             fi
           done
 
       - name: Add timestamp to JSON files
+        if: "!contains(github.event.head_commit.message, '🤖 Add timestamp')"
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ "$file" == data/*.json ]]; then
               echo "Adding timestamp to: $file"
-              
-              # Use custom timestamp script
               node .github/scripts/add-timestamp.js "$file"
             fi
           done
@@ -113,14 +107,11 @@ jobs:
             if [[ "$file" == data/*.json ]]; then
               LOGO_PATH=$(jq -r '.logo' "$file")
               FULL_LOGO_PATH="public/$LOGO_PATH"
-              
-              # Check if the logo file exists in the changed files
+
               if ! echo "${{ steps.changed-files.outputs.all_changed_files }}" | tr ' ' '\n' | grep -q "^$FULL_LOGO_PATH$"; then
                 echo "❌ Logo file $FULL_LOGO_PATH referenced in $file is not included in this PR"
-                echo "Changed files: ${{ steps.changed-files.outputs.all_changed_files }}"
                 exit 1
               fi
-              
               echo "✅ Logo file validation passed"
             fi
           done
@@ -131,12 +122,11 @@ jobs:
           echo "✅ Build successful"
 
       - name: Commit timestamp changes
-        if: success()
+        if: success() && !contains(github.event.head_commit.message, '🤖 Add timestamp')
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          
-          # Check if there are any changes to commit
+
           if git diff --quiet; then
             echo "No timestamp changes to commit"
           else
@@ -146,8 +136,6 @@ jobs:
 Automatically added timestamp field to project JSON file(s).
 
 Co-Authored-By: GitHub Actions <action@github.com>"
-            
-            # Push the changes back to the PR branch
             git push origin HEAD:${{ github.head_ref }}
             echo "✅ Timestamp committed and pushed"
           fi
@@ -165,7 +153,7 @@ Co-Authored-By: GitHub Actions <action@github.com>"
             })
 
       - name: Add failure comment
-        if: failure()
+        if: failure() && !cancelled()
         uses: actions/github-script@v7
         with:
           script: |
