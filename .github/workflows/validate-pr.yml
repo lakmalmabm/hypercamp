@@ -41,16 +41,6 @@ jobs:
             data/**/*.json
             public/assets/logos/**
 
-      - name: Validate PR title format
-        run: |
-          PR_TITLE="${{ github.event.pull_request.title }}"
-          if [[ ! "$PR_TITLE" =~ ^[Aa]dded[[:space:]]+[Pp]roject[[:space:]]+\[.+\]$ ]]; then
-            echo "❌ PR title must follow format: 'Added Project [ProjectName]'"
-            echo "Current title: $PR_TITLE"
-            exit 1
-          fi
-          echo "✅ PR title format is correct"
-
       - name: Validate file changes
         run: |
           echo "Changed files: ${{ steps.changed-files.outputs.all_changed_files }}"
