@@ -1,0 +1,154 @@
+name: Auto-merge Project Submissions
+
+on:
+  pull_request_review:
+    types: [submitted]
+  pull_request:
+    types: [labeled]
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    if: |
+      (github.event.review.state == 'approved' && 
+       startsWith(github.event.pull_request.title, 'Added Project [') &&
+       github.event.pull_request.head.repo.full_name != github.repository) ||
+      (github.event.action == 'labeled' && 
+       github.event.label.name == 'auto-merge' &&
+       startsWith(github.event.pull_request.title, 'Added Project ['))
+    
+    steps:
+      - name: Check PR status
+        id: pr-status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            
+            // Check if PR has been approved by a maintainer
+            const { data: reviews } = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            
+            const approvedReviews = reviews.filter(review => 
+              review.state === 'APPROVED' && 
+              review.author_association === 'OWNER' || 
+              review.author_association === 'MEMBER'
+            );
+            
+            // Check if all status checks passed
+            const { data: status } = await github.rest.repos.getCombinedStatusForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: pr.head.sha
+            });
+            
+            const checksPass = status.state === 'success';
+            const hasApproval = approvedReviews.length > 0;
+            const canMerge = pr.mergeable && !pr.draft;
+            
+            console.log(`Checks pass: ${checksPass}`);
+            console.log(`Has approval: ${hasApproval}`);
+            console.log(`Can merge: ${canMerge}`);
+            
+            return {
+              canMerge: checksPass && hasApproval && canMerge,
+              checksPass,
+              hasApproval,
+              mergeable: canMerge
+            };
+
+      - name: Auto-merge PR
+        if: fromJSON(steps.pr-status.outputs.result).canMerge
+        uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              const result = await github.rest.pulls.merge({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                commit_title: `🚀 ${context.payload.pull_request.title}`,
+                commit_message: `Automatically merged project submission.
+
+${context.payload.pull_request.body || ''}
+
+Co-Authored-By: ${context.payload.pull_request.user.login} <${context.payload.pull_request.user.id}+${context.payload.pull_request.user.login}@users.noreply.github.com>`,
+                merge_method: 'squash'
+              });
+              
+              console.log('PR merged successfully!');
+              
+              // Add welcome comment
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `🎉 **Welcome to HyperCamp!**
+
+Your project has been successfully added to the HyperCamp ecosystem! 
+
+🚀 It will appear on [hypercamp.xyz](https://hypercamp.xyz) within a few minutes.
+
+Thank you for contributing to the HyperEVM ecosystem! 💜
+
+---
+*This PR was automatically merged after passing all validation checks and receiving approval.*`
+              });
+              
+            } catch (error) {
+              console.error('Failed to merge PR:', error);
+              
+              // Comment about the failure
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `❌ **Auto-merge failed**
+
+There was an issue automatically merging this PR. A maintainer will review and merge manually.
+
+Error: ${error.message}`
+              });
+            }
+
+      - name: Add pending comment
+        if: ${{ !fromJSON(steps.pr-status.outputs.result).canMerge }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const status = ${{ steps.pr-status.outputs.result }};
+            let message = '⏳ **Auto-merge pending**\n\n';
+            
+            if (!status.checksPass) {
+              message += '❌ Status checks must pass\n';
+            } else {
+              message += '✅ Status checks passed\n';
+            }
+            
+            if (!status.hasApproval) {
+              message += '❌ Requires approval from a maintainer\n';
+            } else {
+              message += '✅ Approved by maintainer\n';
+            }
+            
+            if (!status.mergeable) {
+              message += '❌ PR has merge conflicts or is a draft\n';
+            } else {
+              message += '✅ Ready to merge\n';
+            }
+            
+            message += '\nThis PR will be automatically merged once all conditions are met.';
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });

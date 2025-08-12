@@ -1,36 +1,267 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏕️ HyperCamp
 
-## Getting Started
+**The Official Hub for the HyperEVM Ecosystem**
 
-First, run the development server:
+HyperCamp is an open-source community-driven platform where developers can discover and showcase projects built on HyperEVM technology. It serves as the central discovery hub for the growing HyperEVM ecosystem.
 
+🌐 **Live Site**: [hypercamp.xyz](https://hypercamp.xyz)
+
+## 🚀 Features
+
+- **📊 Project Discovery**: Browse projects by category, status, and tags
+- **🔍 Real-time Search**: Instantly find projects by name
+- **🎨 Clean Interface**: Responsive design with light/dark mode
+- **🤖 Automated Submissions**: GitHub Actions-powered validation and deployment
+- **📱 Mobile-First**: Optimized for all devices
+
+## 🛠️ Technology Stack
+
+- **Framework**: Next.js 15.4.6 with App Router
+- **UI Library**: Chakra UI v2 with Emotion
+- **Language**: TypeScript (strict mode)
+- **Data**: File-based JSON storage
+- **Deployment**: Automated via GitHub Actions
+
+## 📝 Contributing Projects
+
+Want to showcase your HyperEVM project? Follow these steps:
+
+### Step 1: Fork and Clone
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/YOUR_USERNAME/hypercamp-web.git
+cd hypercamp-web
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Step 2: Add Your Project Files
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Add JSON file** to `/data/your-project-name.json`
+2. **Add logo image** to `/public/assets/logos/your-logo.png`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Step 3: Create Pull Request
 
-## Learn More
+- **Title Format**: `Added Project [Your Project Name]`
+- **Files**: Only add the 2 files mentioned above
+- **Description**: Brief description of your project
 
-To learn more about Next.js, take a look at the following resources:
+### Step 4: Automated Processing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Our GitHub Actions will automatically:
+- ✅ Validate your submission
+- ✅ Add timestamp
+- ✅ Run build tests
+- ✅ Merge when approved
+- ✅ Deploy to production
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📋 Project Schema
 
-## Deploy on Vercel
+All projects must follow this JSON schema:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Required Fields
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```json
+{
+  "name": "string (1-100 chars)",
+  "description": "string (10-500 chars)", 
+  "logo": "assets/logos/filename.(png|jpg|jpeg|svg)",
+  "category": "enum - see valid values below"
+}
+```
+
+### Optional Fields
+
+```json
+{
+  "status": "enum - see valid values below",
+  "x": "https://x.com/username",
+  "discord": "https://discord.gg/invite or https://discord.com/invite/...",
+  "telegram": "https://t.me/channel",
+  "medium": "https://medium.com/@username or https://username.medium.com/...",
+  "web": "https://yourwebsite.com",
+  "other_links": ["https://link1.com", "https://link2.com"],
+  "tags": ["tag1", "tag2", "tag3"],
+  "team": [
+    {
+      "name": "Team Member Name",
+      "title": "Role/Position", 
+      "x": "https://x.com/username"
+    }
+  ]
+}
+```
+
+### Valid Enum Values
+
+#### Categories
+- `"DeFi"` - Decentralized Finance
+- `"NFT"` - Non-Fungible Tokens
+- `"Gaming"` - Gaming & Entertainment
+- `"Infrastructure"` - Developer Tools & Infrastructure
+- `"DAO"` - Decentralized Autonomous Organizations
+- `"DEX"` - Decentralized Exchanges
+- `"Bridge"` - Cross-chain Bridges
+- `"Other"` - Other projects
+
+#### Status
+- `"live"` - Project is live and operational
+- `"upcoming"` - Project launching soon
+- `"development"` - Currently in development
+
+### Complete Example
+
+```json
+{
+  "name": "HyperSwap",
+  "description": "A decentralized exchange built on HyperEVM offering lightning-fast trades with minimal fees. Trade any token with advanced features like limit orders and liquidity farming.",
+  "logo": "assets/logos/hyperswap.png",
+  "category": "DEX",
+  "status": "live",
+  "x": "https://x.com/hyperswap",
+  "discord": "https://discord.gg/hyperswap",
+  "telegram": "https://t.me/hyperswap",
+  "web": "https://hyperswap.exchange",
+  "other_links": [
+    "https://docs.hyperswap.exchange",
+    "https://analytics.hyperswap.exchange"
+  ],
+  "tags": ["dex", "trading", "liquidity", "farming"],
+  "team": [
+    {
+      "name": "Alice Johnson",
+      "title": "Founder & CEO",
+      "x": "https://x.com/alice_hyperswap"
+    },
+    {
+      "name": "Bob Smith", 
+      "title": "Lead Developer",
+      "x": "https://x.com/bob_codes"
+    }
+  ]
+}
+```
+
+## 🔍 Validation Rules
+
+Our automated system validates:
+
+- ✅ **JSON Format**: Must be valid JSON
+- ✅ **Required Fields**: name, description, logo, category
+- ✅ **Field Types**: Correct data types for all fields
+- ✅ **URL Formats**: Valid URLs for social links
+- ✅ **Logo Path**: Must match actual file location
+- ✅ **File Limits**: Max 2 files per PR (1 JSON + 1 logo)
+- ✅ **Naming**: No duplicate project names
+- ✅ **PR Title**: Must follow `Added Project [Name]` format
+
+## 🤖 Automated Features
+
+### GitHub Actions Workflows
+
+1. **PR Validation** (`validate-pr.yml`)
+   - Validates schema compliance
+   - Adds timestamp automatically
+   - Runs build tests
+   - Provides detailed feedback
+
+2. **Auto-merge** (`auto-merge.yml`)
+   - Merges approved submissions
+   - Sends welcome messages
+   - Handles edge cases
+
+3. **Deployment** (`deploy.yml`)
+   - Deploys to production
+   - Notifies contributors
+
+### Timestamp Management
+
+Projects automatically receive a `timestamp` field when submitted:
+```json
+{
+  "timestamp": "2024-12-20T15:30:45Z"
+}
+```
+
+## 🏃‍♂️ Local Development
+
+### Prerequisites
+- Node.js 18+
+- npm, yarn, pnpm, or bun
+
+### Setup
+```bash
+# Clone the repository
+git clone https://github.com/lakmalmabm/hypercamp.git
+cd hypercamp-web
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+### Available Scripts
+```bash
+npm run dev      # Start development server
+npm run build    # Build for production
+npm run start    # Start production server
+npm run lint     # Run ESLint
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view the application.
+
+## 📁 Project Structure
+
+```
+hypercamp-web/
+├── src/
+│   ├── app/
+│   │   ├── api/projects/     # API routes
+│   │   ├── layout.tsx        # Root layout
+│   │   └── page.tsx          # Homepage
+│   ├── components/           # React components
+│   ├── lib/                 # Utility functions
+│   ├── theme/               # Chakra UI theme
+│   └── types/               # TypeScript types
+├── data/                    # Project JSON files
+├── public/assets/logos/     # Project logos
+├── .github/
+│   ├── workflows/           # GitHub Actions
+│   ├── scripts/            # Validation scripts
+│   └── project-schema.json # JSON schema
+└── ...
+```
+
+## 🤝 Community Guidelines
+
+### For Project Submissions
+- ✅ Only submit legitimate HyperEVM projects
+- ✅ Ensure all information is accurate
+- ✅ Use high-quality logos (PNG/JPG/SVG)
+- ✅ Follow the exact JSON schema
+- ✅ One project per PR
+
+### For Contributors
+- ✅ Follow existing code style
+- ✅ Test changes locally
+- ✅ Keep PRs focused and small
+- ✅ Update documentation when needed
+
+## 📞 Support
+
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/lakmalmabm/hypercamp/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/lakmalmabm/hypercamp/discussions)
+- 📖 **Documentation**: This README and inline code comments
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🙏 Acknowledgments
+
+- Built with ❤️ for the HyperEVM community
+- Powered by [Next.js](https://nextjs.org/) and [Chakra UI](https://chakra-ui.com/)
+- Hosted on [hypercamp.xyz](https://hypercamp.xyz)
+
+---
+
+**Join the HyperEVM ecosystem today!** 🚀

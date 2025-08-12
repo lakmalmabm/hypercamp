@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "HyperCamp Project Schema",
+  "description": "Schema for project submissions to HyperCamp",
+  "required": ["name", "description", "logo", "category"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "The project name"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 500,
+      "description": "A detailed description of the project"
+    },
+    "logo": {
+      "type": "string",
+      "pattern": "^assets/logos/.*\\.(png|jpg|jpeg|svg)$",
+      "description": "Path to the project logo"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["DeFi", "NFT", "Gaming", "Infrastructure", "DAO", "DEX", "Bridge", "Other"],
+      "description": "Project category"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["live", "upcoming", "development"],
+      "description": "Current project status"
+    },
+    "x": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://x\\.com/.*",
+      "description": "X (Twitter) profile URL"
+    },
+    "discord": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://discord\\.(gg|com)/.*",
+      "description": "Discord server invite URL"
+    },
+    "telegram": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://t\\.me/.*",
+      "description": "Telegram channel URL"
+    },
+    "medium": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://.*medium\\.com/.*",
+      "description": "Medium publication URL"
+    },
+    "web": {
+      "type": "string",
+      "format": "uri",
+      "description": "Project website URL"
+    },
+    "other_links": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      },
+      "maxItems": 5,
+      "description": "Additional project links"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 20
+      },
+      "maxItems": 10,
+      "uniqueItems": true,
+      "description": "Project tags for categorization"
+    },
+    "team": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "title"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50
+          },
+          "x": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://x\\.com/.*"
+          }
+        },
+        "additionalProperties": false
+      },
+      "maxItems": 10,
+      "description": "Team members"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Automatically added submission timestamp"
+    }
+  },
+  "additionalProperties": false
+}
