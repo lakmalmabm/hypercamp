@@ -13,6 +13,7 @@ import SearchBar from '@/components/SearchBar';
 import ProjectCard from '@/components/ProjectCard';
 import ProjectModal from '@/components/ProjectModal';
 import ThemeToggle from '@/components/ThemeToggle';
+import InfoIcon from '@/components/InfoIcon';
 import Footer from '@/components/Footer';
 import { Project } from '@/types/project';
 
@@ -23,7 +24,7 @@ export default function Home() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   
-  const bgColor = useColorModeValue('#e8fff3', '#121212');
+  const bgColor = useColorModeValue('#00ff7b19', '#121212');
   const textColor = useColorModeValue('gray.600', 'gray.400');
 
   useEffect(() => {
@@ -90,6 +91,7 @@ export default function Home() {
       
       <Footer />
       <ThemeToggle />
+      <InfoIcon />
     </Box>
   );
 }
