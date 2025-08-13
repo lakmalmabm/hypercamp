@@ -28,8 +28,9 @@ interface InfoModalProps {
 }
 
 export default function InfoModal({ isOpen, onClose }: InfoModalProps) {
-  const bgColor = useColorModeValue('white', 'gray.800');
+  const bgColor = useColorModeValue('white', '#373737');
   const borderColor = useColorModeValue('gray.200', 'gray.600');
+  const shadowColor = useColorModeValue('#38373c', 'black');
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="3xl" isCentered>
@@ -38,8 +39,8 @@ export default function InfoModal({ isOpen, onClose }: InfoModalProps) {
         maxH="90vh"
         overflowY="auto"
         bg={bgColor}
-        borderRadius="3xl"
-        boxShadow="2xl"
+        boxShadow={'4px 4px 0px ' + shadowColor}
+        border={'1px solid ' + shadowColor}
         mx={4}
       >
         <ModalHeader>About HyperCamp</ModalHeader>

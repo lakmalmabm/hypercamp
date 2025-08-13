@@ -1,0 +1,33 @@
+{
+	"name": "Liquidfi",
+	"description": "First NFT Aggregated Marketplace @HyperliquidX - NFT Lending, Trade, launch, - all in one place.",
+	"logo": "assets/logos/liquidfi.png",
+	"category": "DeFi",
+	"status": "live",
+	"x": "https://x.com/liquidfi_app",
+	"discord": "https://discord.gg/bUem5Up8Nk",
+	"web": "https://www.liquidfi.app/",
+	"tags": ["NFT","Marketplace","Raffle","Auctions","Launchpad"],
+	"team": [
+		{
+			"name": "EJ",
+			"title": "Founder",
+			"x": "https://x.com/EJ_SpaceSkelly"
+		},
+		{
+			"name": "Others",
+			"title": "Community",
+			"x": "https://x.com/0xOthers"
+		},
+		{
+			"name": "Wild Developer",
+			"title": "Lead Developer",
+			"x": "https://x.com/wild_developer_"
+		},
+		{
+			"name": "Tharindu N.",
+			"title": "Developer",
+			"x": "https://x.com/trueThari"
+		}
+	]
+}

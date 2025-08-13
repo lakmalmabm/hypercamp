@@ -9,11 +9,12 @@ interface SearchBarProps {
 }
 
 export default function SearchBar({ searchTerm, onSearchChange }: SearchBarProps) {
-  const bg = useColorModeValue('white', 'gray.800');
+  const bg = useColorModeValue('white', '#373737');
   const borderColor = useColorModeValue('gray.200', 'gray.600');
   const hoverBorderColor = useColorModeValue('gray.300', 'gray.500');
   const focusBorderColor = useColorModeValue('#294f0b', '#609C25');
   const iconColor = useColorModeValue('gray.400', 'gray.500');
+  const shadowColor = useColorModeValue('#38373c', 'black');
   
   return (
     <InputGroup size="lg"  mx="auto" mb={12}>
@@ -25,12 +26,11 @@ export default function SearchBar({ searchTerm, onSearchChange }: SearchBarProps
         value={searchTerm}
         onChange={(e) => onSearchChange(e.target.value)}
         bg={bg}
-        borderColor={borderColor}
-        borderRadius="2xl"
+        boxShadow={'4px 4px 0px ' + shadowColor}
+        border={'1px solid ' + shadowColor}
         h={{ base: "50px", md: "60px" }}
         fontSize={{ base: "md", md: "lg" }}
         pl={{ base: "50px", md: "60px" }}
-        boxShadow="md"
         _hover={{ 
           borderColor: hoverBorderColor,
           boxShadow: 'lg',

@@ -11,7 +11,7 @@ const theme = extendTheme({
   },
   colors: {
     light: {
-      bg: '#e8fff3',
+      bg: '#fefdfbff',
       primary: '#294f0b',
     },
     dark: {

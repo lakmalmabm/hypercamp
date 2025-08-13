@@ -31,12 +31,13 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
-  const bg = useColorModeValue('white', 'gray.800');
+  const bg = useColorModeValue('white', '#373737');
   const textColor = useColorModeValue('gray.700', 'gray.300');
   const headingColor = useColorModeValue('gray.900', 'white');
   const closeBg = useColorModeValue('gray.100', 'gray.700');
   const closeHoverBg = useColorModeValue('gray.200', 'gray.600');
   const teamBg = useColorModeValue('gray.50', 'gray.700');
+  const shadowColor = useColorModeValue('#38373c', 'black');
   
   if (!project) return null;
 
@@ -56,9 +57,12 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
         maxH="90vh" 
         overflowY="auto" 
         bg={bg}
-        borderRadius="3xl"
-        boxShadow="2xl"
+        
+        // boxShadow="2xl"
         mx={4}
+        borderRadius="10"
+        boxShadow={'4px 4px 0px ' + shadowColor}
+        border={'1px solid ' + shadowColor}
       >
         <ModalHeader px={8} pt={8} pb={0}>
           <HStack spacing={6} align="start">

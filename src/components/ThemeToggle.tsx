@@ -14,8 +14,9 @@ export default function ThemeToggle() {
       position="fixed"
       bottom={8}
       right={8}
-      size="lg"
+      size="md"
       borderRadius="full"
+        border={'1px solid'}
       bg={bg}
       color={colorMode === 'light' ? 'gray.800' : 'white'}
       boxShadow="xl"

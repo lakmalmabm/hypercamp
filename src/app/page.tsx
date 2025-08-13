@@ -1,13 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { 
   Container, 
   SimpleGrid, 
   Text, 
   Box,
   useDisclosure,
-  useColorModeValue
+  useColorModeValue,
+  Image
 } from '@chakra-ui/react';
 import SearchBar from '@/components/SearchBar';
 import ProjectCard from '@/components/ProjectCard';
@@ -24,7 +25,23 @@ export default function Home() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   
-  const bgColor = useColorModeValue('#00ff7b19', '#121212');
+  const pastelColors = [
+    '#fff3c4ff',
+    '#ffe6e6ff',
+    '#ffb6c1ff',
+    '#ffd7beff',
+    '#ffffbf',
+    '#b2ff59ff',
+    '#80ff9cff',
+    '#64ffc9ff',
+    '#45fffbff',
+    '#34c759ff',
+  ];
+
+  const randomPastelColor = useRef(pastelColors[Math.floor(Math.random() * pastelColors.length)]).current;
+
+  const bgColor = useColorModeValue(randomPastelColor, '#121212');
+
   const textColor = useColorModeValue('gray.600', 'gray.400');
 
   useEffect(() => {
@@ -55,6 +72,22 @@ export default function Home() {
     <Box minH="100vh" bg={bgColor} pb="60px">
       <Container maxW="container.xl" py={10} px={{ base: 6, md: 8 }}>
         {/* <BannerCarousel /> */}
+
+        <Box textAlign="center" width={'100%'} justifyContent={'center'} display={'flex'}>
+          <Image src='./logo-transparent.png' alt='Hypercamp Logo'
+        boxSize={[130,200]} />
+        </Box>
+
+        <Text 
+          fontSize={{ base: '2xl', md: '3xl' }} 
+          fontWeight="bold"
+          textAlign="center" 
+          mb={[ 4, 6 ]}
+          color={textColor}
+        >
+          The Place Where We All Connect
+        </Text>
+        
         <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
         
         {filteredProjects.length === 0 && searchTerm && (
@@ -81,6 +114,7 @@ export default function Home() {
             />
           ))}
         </SimpleGrid>
+
       </Container>
 
       <ProjectModal

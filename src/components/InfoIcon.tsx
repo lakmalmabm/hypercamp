@@ -16,8 +16,9 @@ export default function InfoIconButton() {
         position="fixed"
         bottom={8}
         left={8}
-        size="lg"
+        size="md"
         borderRadius="full"
+        border={'1px solid'}
         bg={bg}
         color={useColorModeValue('gray.800', 'white')}
         boxShadow="xl"
