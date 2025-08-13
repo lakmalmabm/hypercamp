@@ -40,7 +40,7 @@ export default function Home() {
 
   const randomPastelColor = useRef(pastelColors[Math.floor(Math.random() * pastelColors.length)]).current;
 
-  const bgColor = useColorModeValue(randomPastelColor, '#121212');
+  const bgColor = useColorModeValue('#45fffbff', '#121212');
 
   const textColor = useColorModeValue('gray.600', 'gray.400');
 

@@ -1,0 +1,18 @@
+{
+	"name": "$Move Token",
+	"description": "$MOVE Token: 1 billion supply token that has already been released and airdropped to Hyperian and Hyperian Genesis holders. It is the hub of Hyperians Movement.",
+	"logo": "assets/logos/move.png",
+	"category": "TOKEN",
+	"status": "live",
+	"x": "https://x.com/Hyperian_backup",
+	"discord": "https://discord.gg/pGuKFHK2mw",
+	"web": "https://dexscreener.com/hyperevm/0xbdde94ecc8cce272d3cff5d7cf5e70af0bc1cb93",
+	"tags": ["Token"],
+	"team": [
+		{
+			"name": "LuketheBuilder",
+			"title": "Founder",
+			"x": "https://x.com/Lukehypebuilder"
+		}
+	]
+}

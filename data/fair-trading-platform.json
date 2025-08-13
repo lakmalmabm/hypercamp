@@ -1,0 +1,18 @@
+{
+	"name": "Fair Trading Platform",
+	"description": "Pump.fun-like website: This is where all the dots connect. The website, similar to Solana’s well-known pump.fun, will be intuitive and easy for anyone to launch their own token on the Hyper EVM ecosystem. (In progress)",
+	"logo": "assets/logos/fair-trading-platform.png",
+	"category": "Defi",
+	"status": "upcoming",
+	"x": "https://x.com/Hyperian_backup",
+	"discord": "https://discord.gg/pGuKFHK2mw",
+	"web": "https://dexscreener.com/hyperevm/0xbdde94ecc8cce272d3cff5d7cf5e70af0bc1cb93",
+	"tags": ["Token","Launchpad","Dex"],
+	"team": [
+		{
+			"name": "LuketheBuilder",
+			"title": "Founder",
+			"x": "https://x.com/Lukehypebuilder"
+		}
+	]
+}

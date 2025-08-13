@@ -119,8 +119,10 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
               color={textColor} 
               lineHeight="tall" 
               fontSize={{ base: "md", md: "lg" }}
-              dangerouslySetInnerHTML={{ __html: project.description }}
-            />
+              whiteSpace="pre-line"
+            >
+              {project.description}
+              </Text>
 
             {project.tags && project.tags.length > 0 && (
               <Box>
