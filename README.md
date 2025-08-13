@@ -36,15 +36,6 @@ cd hypercamp-web
 - **Files**: Only add the 2 files mentioned above
 - **Description**: Brief description of your project
 
-### Step 4: Automated Processing
-
-Our GitHub Actions will automatically:
-- ✅ Validate your submission
-- ✅ Add timestamp
-- ✅ Run build tests
-- ✅ Merge when approved
-- ✅ Deploy to production
-
 ## 📋 Project Schema
 
 All projects must follow this JSON schema:
